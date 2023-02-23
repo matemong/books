@@ -12,6 +12,11 @@ export const validateEmail = (email: string): string | undefined => {
       return "Please enter a password that is at least 5 characters long";
     }
   };
+  export const validateConfirmPassword = (confirmPassword: string, password: string): string | undefined => {
+    if (confirmPassword !== password) {
+      return "Passwords do not match";
+    }
+  };
   
   export const validateName = (name: string): string | undefined => {
     if (!name.length) return `Please enter a value`;
