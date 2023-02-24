@@ -3,19 +3,19 @@ import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { getUser, requireUserId } from "~/utils/auth.server";
 import { Layout } from "~/components/layout";
+import { Book } from "~/components/book";
 
 export const loader: LoaderFunction = async ({ request }) => {
-
   const url = new URL(request.url);
   const title = url.searchParams.get("title");
-  if(title === null){
+  if (title === null) {
     return {};
   }
 
   const searchResult = await (
     await fetch(`https://openlibrary.org/search.json?title=${title}&limit=10`)
   ).json();
-  
+
   return json({ searchResult });
 };
 
@@ -26,7 +26,7 @@ export default function Home() {
     <Layout>
       <Form
         method="get"
-        className="w-full px-6 flex items-center gap-x-4 border-b-4 border-purple h-20 justify-center"
+        className="w-full px-6 flex items-center gap-x-4 h-20 justify-center"
       >
         <div className={`flex items-center w-2/5`}>
           <input
@@ -53,13 +53,19 @@ export default function Home() {
           Search
         </button>
       </Form>
-      <div>
-        RESULTS:
+      <div className="flex justify-center flex-col gap-y-4 w-9/12 mx-auto mt-5 rounded-2xl bg-seaFoam p-6">
+        
+        <h2 className="p-3 text-center text-5xl font-extrabold text-jet">Search results</h2>
         <ul>
-        {searchResult?.docs.map((book) => {
-            return <li key={book.key}>{book.title}
-            <img alt={`${book.title} cover`} src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}></img></li>
-        })}
+          {searchResult?.docs.map((book) => {
+            return (
+              <Book
+                key={book.cover_i}
+                title={book.title}
+                cover_i={book.cover_i}
+              ></Book>
+            );
+          })}
         </ul>
       </div>
     </Layout>
