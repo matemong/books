@@ -56,7 +56,8 @@ export default function Home() {
         RESULTS:
         <ul>
         {searchResult?.docs.map((book) => {
-            return <li key={book.key}>{book.title}</li>
+            return <li key={book.key}>{book.title}
+            <img alt={`${book.title} cover`} src={`https://covers.openlibrary.org/b/id/${book.cover_i}.jpg`}></img></li>
         })}
         </ul>
       </div>
