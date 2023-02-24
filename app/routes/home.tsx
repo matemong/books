@@ -2,6 +2,7 @@ import { Form, useLoaderData } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { getUser, requireUserId } from "~/utils/auth.server";
+import { Layout } from "~/components/layout";
 
 export const loader: LoaderFunction = async ({ request }) => {
 
@@ -12,7 +13,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const searchResult = await (
-    await fetch(`https://openlibrary.org/search.json?title=${title}`)
+    await fetch(`https://openlibrary.org/search.json?title=${title}&limit=10`)
   ).json();
   
   return json({ searchResult });
@@ -22,7 +23,7 @@ export default function Home() {
   const { searchResult } = useLoaderData();
 
   return (
-    <>
+    <Layout>
       <Form
         method="get"
         className="w-full px-6 flex items-center gap-x-4 border-b-4 border-purple h-20 justify-center"
@@ -57,10 +58,10 @@ export default function Home() {
         <ul>
         {searchResult?.docs.map((book) => {
             return <li key={book.key}>{book.title}
-            <img alt={`${book.title} cover`} src={`https://covers.openlibrary.org/b/id/${book.cover_i}.jpg`}></img></li>
+            <img alt={`${book.title} cover`} src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}></img></li>
         })}
         </ul>
       </div>
-    </>
+    </Layout>
   );
 }
