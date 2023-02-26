@@ -147,7 +147,7 @@ export default function Login() {
 
   return (
     <Layout>
-      <div className="h-full flex justify-center items-center flex-col gap-y-4">
+      <div className="h-screen flex justify-center items-center flex-col gap-y-4">
         <button
           onClick={() => setAction(action == "login" ? "register" : "login")}
           className="absolute top-8 right-8 rounded-xl bg-purple text-white font-semibold px-3 py-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:bg-darkPurple"
@@ -160,7 +160,7 @@ export default function Login() {
         </p>
 
         <Form method="post" className="rounded-2xl bg-seaFoam p-6 w-96">
-          <div className="text-xs font-semibold text-center tracking-wide text-jet w-full">
+          <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
             {formError}
           </div>
           <FormField

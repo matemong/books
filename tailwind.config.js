@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -21,7 +23,10 @@ module.exports = {
         pastelBlue: '#86A59C',
         seaFoam: '#89CE94',
         jet: '#333333',
-      }
+      },
+      fontFamily: {
+        'sans': ['Proxima Nova', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [],

@@ -6,6 +6,7 @@ import { Layout } from "~/components/layout";
 import { Book } from "~/components/book";
 
 export const loader: LoaderFunction = async ({ request }) => {
+  const userId = await requireUserId(request);
   const url = new URL(request.url);
   const title = url.searchParams.get("title");
   if (title === null) {
@@ -24,6 +25,16 @@ export default function Home() {
 
   return (
     <Layout>
+        <Form action="/logout" method="post">
+            <div className="flex justify-end p-5">
+            <button
+                type="submit"
+                className="rounded-xl bg-purple text-white font-semibold px-3 py-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:bg-darkPurple"
+            >
+                Sign Out
+            </button>
+          </div>
+        </Form>
       <Form
         method="get"
         className="w-full px-6 flex items-center gap-x-4 h-20 justify-center"
@@ -54,8 +65,9 @@ export default function Home() {
         </button>
       </Form>
       <div className="flex justify-center flex-col gap-y-4 w-9/12 mx-auto mt-5 rounded-2xl bg-seaFoam p-6">
-        
-        <h2 className="p-3 text-center text-5xl font-extrabold text-jet">Search results</h2>
+        <h2 className="p-3 text-center text-5xl font-extrabold text-jet">
+          Search results
+        </h2>
         <ul>
           {searchResult?.docs.map((book) => {
             return (
