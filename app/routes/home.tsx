@@ -69,11 +69,12 @@ export default function Home() {
           <h2 className="p-3 text-center text-5xl font-extrabold text-jet">
             Search results
           </h2>
-          <ul>
+          <ul className="flex justify-center items-center flex-col">
             {searchResult?.docs.map((book) => {
               return (
                 <Book
                   key={book.key}
+                  id={book.key}
                   title={book.title}
                   cover_i={book.cover_i}
                 ></Book>
