@@ -150,7 +150,7 @@ export default function Login() {
       <div className="h-screen flex justify-center items-center flex-col gap-y-4">
         <button
           onClick={() => setAction(action == "login" ? "register" : "login")}
-          className="absolute top-8 right-8 rounded-xl bg-purple text-white font-semibold px-3 py-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:bg-darkPurple"
+          className="absolute top-8 right-8 btn btn-primary transition duration-300 ease-in-out hover:-translate-y-1"
         >
           {action === "login" ? "Sign Up" : "Sign In"}
         </button>
@@ -211,7 +211,7 @@ export default function Login() {
               name="_action"
               value={action}
               type="submit"
-              className="rounded-xl mt-2 bg-purple text-white px-3 py-2 font-semibold transition duration-300 ease-in-out hover:-translate-y-1 hover:bg-darkPurple"
+              className="rounded-xl mt-2 btn btn-primary transition duration-300 ease-in-out hover:-translate-y-1"
             >
               {action === "login" ? "Sign In" : "Sign Up"}
             </button>

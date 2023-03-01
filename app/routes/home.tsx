@@ -29,7 +29,7 @@ export default function Home() {
         <div className="flex justify-end p-5">
           <button
             type="submit"
-            className="rounded-xl bg-purple text-white font-semibold px-3 py-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:bg-darkPurple"
+            className="rounded-xl mt-2 btn btn-primary transition duration-300 ease-in-out hover:-translate-y-1"
           >
             Sign Out
           </button>
@@ -43,7 +43,7 @@ export default function Home() {
           <input
             type="text"
             name="title"
-            className="w-full rounded-xl px-3 py-2 border-purple border-opacity-50"
+            className="input input-bordered w-full"
             placeholder="Search book title"
           />
           <svg
@@ -59,7 +59,7 @@ export default function Home() {
         <button
           type="submit"
           name="_action"
-          className="rounded-xl bg-purple text-white font-semibold px-3 py-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:bg-darkPurple"
+          className="rounded-xl btn btn-primary"
         >
           Search
         </button>
