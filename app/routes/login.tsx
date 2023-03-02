@@ -1,4 +1,4 @@
-import type { ActionFunction,  LoaderFunction, } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
@@ -39,7 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
       typeof lastName !== "string" ||
       typeof confirmPassword !== "string")
   ) {
-    return json({ error: `Invalid Form Data`, form: action }, { status: 418});
+    return json({ error: `Invalid Form Data`, form: action }, { status: 418 });
   }
 
   const errors = {
@@ -60,13 +60,13 @@ export const action: ActionFunction = async ({ request }) => {
   const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
   if (hasErrors) {
     return json(
-        {
-          errors,
-          fields: { email, password, confirmPassword, firstName, lastName },
-          form: action,
-        },
-        { status: 418 }
-      )
+      {
+        errors,
+        fields: { email, password, confirmPassword, firstName, lastName },
+        form: action,
+      },
+      { status: 418 }
+    );
   }
 
   switch (action) {
@@ -95,7 +95,13 @@ export default function Login() {
 
   const firstLoad = useRef(true);
   const [formError, setFormError] = useState("");
-  const [errors, setErrors] = useState({email: "", password: "", confirmPassword: "", firstName: "", lastName: ""});
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+  });
   const [action, setAction] = useState("login");
   const [formData, setFormData] = useState({
     email: actionData?.fields?.email || "",
@@ -104,7 +110,6 @@ export default function Login() {
     firstName: actionData?.fields?.lastName || "",
     lastName: actionData?.fields?.firstName || "",
   });
-
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -130,10 +135,10 @@ export default function Login() {
     }
   }, [action]);
 
-  useEffect(()=> {
+  useEffect(() => {
     setFormError(actionData?.error);
     setErrors(actionData?.errors);
-  }, [actionData])
+  }, [actionData]);
 
   useEffect(() => {
     if (!firstLoad.current) {
@@ -158,65 +163,68 @@ export default function Login() {
         <p className="font-semibold text-jet">
           {action === "login" ? "Log In To Begin!" : "Sign Up To Get Started!"}
         </p>
-
-        <Form method="post" className="rounded-2xl bg-seaFoam p-6 w-96">
-          <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
-            {formError}
-          </div>
-          <FormField
-            htmlFor="email"
-            label="Email"
-            value={formData.email}
-            onChange={(e) => handleInputChange(e, "email")}
-            error={errors?.email || ""}
-          />
-          <FormField
-            htmlFor="password"
-            label="Password"
-            type="password"
-            value={formData.password}
-            onChange={(e) => handleInputChange(e, "password")}
-            error={errors?.password}
-          />
-
-          {action !== "login" ? (
-            <>
+        <div className="card rounded-2xl bg-seaFoam w-96">
+          <Form method="post">
+            <div className="card-body">
+              <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
+                {formError}
+              </div>
               <FormField
-                htmlFor="confirmPassword"
-                label="Confirm password"
-                value={formData.confirmPassword}
+                htmlFor="email"
+                label="Email"
+                value={formData.email}
+                onChange={(e) => handleInputChange(e, "email")}
+                error={errors?.email || ""}
+              />
+              <FormField
+                htmlFor="password"
+                label="Password"
                 type="password"
-                onChange={(e) => handleInputChange(e, "confirmPassword")}
-                error={actionData?.errors.confirmPassword}
+                value={formData.password}
+                onChange={(e) => handleInputChange(e, "password")}
+                error={errors?.password}
               />
-              <FormField
-                htmlFor="firstName"
-                label="First Name"
-                value={formData.firstName}
-                onChange={(e) => handleInputChange(e, "firstName")}
-                error={actionData?.errors.firstName}
-              />
-              <FormField
-                htmlFor="lastName"
-                label="Last Name"
-                value={formData.lastName}
-                onChange={(e) => handleInputChange(e, "lastName")}
-                error={actionData?.errors.lastName}
-              />
-            </>
-          ) : null}
 
-          <div className="w-full text-center">
-            <button
-              name="_action"
-              value={action}
-              type="submit"
-              className="rounded-xl mt-2 btn btn-primary transition duration-300 ease-in-out hover:-translate-y-1"
-            >
-              {action === "login" ? "Sign In" : "Sign Up"}
-            </button>
-          </div>
-        </Form>
+              {action !== "login" ? (
+                <>
+                  <FormField
+                    htmlFor="confirmPassword"
+                    label="Confirm password"
+                    value={formData.confirmPassword}
+                    type="password"
+                    onChange={(e) => handleInputChange(e, "confirmPassword")}
+                    error={actionData?.errors.confirmPassword}
+                  />
+                  <FormField
+                    htmlFor="firstName"
+                    label="First Name"
+                    value={formData.firstName}
+                    onChange={(e) => handleInputChange(e, "firstName")}
+                    error={actionData?.errors.firstName}
+                  />
+                  <FormField
+                    htmlFor="lastName"
+                    label="Last Name"
+                    value={formData.lastName}
+                    onChange={(e) => handleInputChange(e, "lastName")}
+                    error={actionData?.errors.lastName}
+                  />
+                </>
+              ) : null}
+
+              <div className="w-full text-center">
+                <button
+                  name="_action"
+                  value={action}
+                  type="submit"
+                  className="rounded-xl btn btn-primary transition duration-300 ease-in-out hover:-translate-y-1"
+                >
+                  {action === "login" ? "Sign In" : "Sign Up"}
+                </button>
+              </div>
+            </div>
+          </Form>
+        </div>
       </div>
     </Layout>
   );

@@ -65,7 +65,7 @@ export default function Home() {
         </button>
       </Form>
       {searchResult && (
-        <div className="flex justify-center flex-col gap-y-4 w-9/12 mx-auto mt-5 rounded-2xl bg-seaFoam p-6">
+        <div className="card gap-y-4 w-9/12 mx-auto mt-5 bg-seaFoam p-6">
           <h2 className="p-3 text-center text-5xl font-extrabold text-jet">
             Search results
           </h2>
@@ -76,6 +76,7 @@ export default function Home() {
                   key={book.key}
                   id={book.key}
                   title={book.title}
+                  authors={book.author_name}
                   cover_i={book.cover_i}
                 ></Book>
               );
