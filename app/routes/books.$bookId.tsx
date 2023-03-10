@@ -1,10 +1,24 @@
 import { useLoaderData } from "@remix-run/react";
-import type { LoaderFunction } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import { Form } from "@remix-run/react";
+import { addBookToFavourites } from "~/utils/books.server";
 
 import { requireUserId } from "~/utils/auth.server";
 import { Layout } from "~/components/layout";
 
+export const action: ActionFunction = async ({ request, params }) => {
+  const form = await request.formData();
+  const { bookId } = params;
+  const userId = await requireUserId(request);
+
+  const bookData = await (
+    await addBookToFavourites(userId, bookId!)
+  );
+  console.log(bookData);
+  return bookData;
+
+}
 export const loader: LoaderFunction = async ({ request, params }) => {
   const userId = await requireUserId(request);
   const { bookId } = params;
@@ -64,6 +78,16 @@ export default function BookDetailsPage() {
             {bookData?.title}
           </h1>
           <p className="font-semibold text-jet">{bookData?.description} </p>
+          <Form method="post">
+            <button
+              name="_action"
+              value="favourite"
+              type="submit"
+              className="absolute top-8 right-8 btn btn-primary transition duration-300 ease-in-out hover:-translate-y-1"
+            >
+              add to favourites
+          </button>
+        </Form>
         </div>
       </div>
     </Layout>

@@ -13,6 +13,7 @@
     "@remix-run/node": "^1.12.0",
     "@remix-run/react": "^1.12.0",
     "@remix-run/vercel": "^1.12.0",
+    "@tailwindcss/typography": "^0.5.9",
     "@vercel/node": "^2.6.2",
     "bcryptjs": "^2.4.3",
     "daisyui": "^2.51.2",
